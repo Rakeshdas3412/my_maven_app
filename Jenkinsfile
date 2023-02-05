@@ -1,19 +1,10 @@
-@Library("mylibs") _
-pipeline {
-  agent any
-  tools {
-    maven 'maven2'
+node{
+  stage('Checkout from SCM'){
+  git 'https://github.com/Rakeshdas3412/my_maven_app'
   }
-  stages{
-    stage("Maven Build"){
-      steps{
-        sh "mvn clean package"
-      }
-    }
-    stage("Deploy To Dev"){
-      steps{
-        tomcatDeploy("tomcat-dev","ec2-user",["172.31.13.89","172.31.13.89"])
-      }
-    }
+  stage('Comlie-Package'){
+  sh 'mvn package'
   }
+  
+
 }
